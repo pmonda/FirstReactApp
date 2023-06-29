@@ -1,14 +1,13 @@
-// import { render } from '@testing-library/react';
+import { render } from '@testing-library/react';
 import './App.css';
 import Employee from './components/Employee';
 import { useState } from 'react';
 import React from 'react';
 import {v4 as uuidv4} from 'uuid';
-import AddEmployee from './components/AddEmployee';
 // import uuidv4 as v4
 
 function App() {
-  // const [role,setRole] = useState();
+  const [role,setRole] = useState();
   const [employees,setEmployees] = useState(
     [
       { 
@@ -72,7 +71,7 @@ function App() {
   console.log('we are about to list the employees');
   function updateEmployee(id, newName, newRole) {
     const updateEmployees = employees.map((employee) => {
-      if(id === employee.id) {
+      if(id == employee.id) {
         //return new
         return {...employee, name:newName, role:newRole};
       }
@@ -80,22 +79,9 @@ function App() {
     });
     setEmployees(updateEmployees);
   }
-
-
-  function newEmployee(name, role, img) {
-    const newEmp = {
-      name: name,
-      role: role,
-      img : img
-    }
-    setEmployees([...employees], newEmp);
-  }
   return (
     <div className="App">
-            <AddEmployee newEmployee={newEmployee}>
-            </AddEmployee>
-
-      <div className="flex flex-wrap justify-center">
+      <div className="flex flex-wrap">
         {
           
           employees.map((employee) => {
