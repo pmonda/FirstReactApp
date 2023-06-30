@@ -1,12 +1,12 @@
 import { Fragment } from "react";
 import { Disclosure, Menu, Transition } from "@headlessui/react";
 import { Bars3Icon, BellIcon, XMarkIcon } from "@heroicons/react/24/outline";
-
+import { NavLink } from "react-router-dom";
 const navigation = [
-  { name: "Dashboard", href: "#", current: true },
-  { name: "Team", href: "#", current: false },
-  { name: "Projects", href: "#", current: false },
-  { name: "Calendar", href: "#", current: false },
+  { name: "Employees", href: "/employees"},
+  { name: "Customers", href: "/customers"},
+  { name: "Projects", href: "/other"},
+  { name: "Calendar", href: "/other2"},
 ];
 
 function classNames(...classes) {
@@ -15,6 +15,7 @@ function classNames(...classes) {
 
 export default function Header(props) {
   return (
+    <>
     <Disclosure as="nav" className="bg-gray-800">
       {({ open }) => (
         <>
@@ -36,19 +37,23 @@ export default function Header(props) {
                 <div className="hidden sm:ml-6 sm:block">
                   <div className="flex space-x-4">
                     {navigation.map((item) => (
-                      <a
+                      <NavLink
                         key={item.name}
-                        href={item.href}
+                        to={item.href}
                         className={classNames(
                           item.current
                             ? "no-underline bg-gray-900 text-white"
                             : " no-underline text-gray-300 hover:bg-gray-700 hover:text-white",
                           "rounded-md px-3 py-2 text-sm font-medium"
                         )}
-                        aria-current={item.current ? "page" : undefined}
+                        // className={({ isActive }) => {
+                        //   return 'no-underline rounded-md px-3 py-2 text-sm font-medium' +
+                        //     (isActive ? 
+                        //       'bg-gray-900 text-white' : 'text-gray-300 hover:bg-gray-700 hover:text-white');
+                        // }}
                       >
                         {item.name}
-                      </a>
+                      </NavLink>
                     ))}
                   </div>
                 </div>
@@ -63,7 +68,7 @@ export default function Header(props) {
                 </button>
 
                 {/* Profile dropdown */}
-                <Menu as="div" className="relative ml-3">
+                {/* <Menu as="div" className="relative ml-3">
                   <div>
                     <Menu.Button className="flex rounded-full bg-gray-800 text-sm focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800">
                       <span className="sr-only">Open user menu</span>
@@ -120,7 +125,7 @@ export default function Header(props) {
                       </Menu.Item>
                     </Menu.Items>
                   </Transition>
-                </Menu>
+                </Menu> */}
               </div>
             </div>
           </div>
@@ -134,8 +139,8 @@ export default function Header(props) {
                   href={item.href}
                   className={classNames(
                     item.current
-                      ? "bg-gray-900 text-white"
-                      : "text-gray-300 hover:bg-gray-700 hover:text-white",
+                      ? "no-underline bg-gray-900 hover:bg-gray-60text-white"
+                      : "no-underline text-gray-300 hover:bg-gray-700 hover:text-white",
                     "block rounded-md px-3 py-2 text-base font-medium"
                   )}
                   aria-current={item.current ? "page" : undefined}
@@ -145,9 +150,15 @@ export default function Header(props) {
               ))}
             </div>
           </Disclosure.Panel>
-          {props.children}
+          <footer>Example</footer>
         </>
       )}
     </Disclosure>
+    <div className="bg-gray-300">
+      <div className="max-w-7xl mx-auto bg-gray-300 min-h-screen px-2 py-2">{props.children}</div>
+
+    </div>
+    </>
+
   );
 }
