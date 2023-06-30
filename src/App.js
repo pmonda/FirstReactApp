@@ -84,17 +84,16 @@ function App() {
 
   function newEmployee(name, role, img) {
     const newEmp = {
-      name: name,
-      role: role,
-      img : img
+        id: uuidv4(),
+        name:  name, 
+        role: role,
+        img: img
     }
-    setEmployees([...employees], newEmp);
+    setEmployees([...employees, newEmp]);
   }
   return (
     <div className="App">
-            <AddEmployee newEmployee={newEmployee}>
-            </AddEmployee>
-
+      
       <div className="flex flex-wrap justify-center">
         {
           
@@ -110,6 +109,9 @@ function App() {
           }) 
         } 
       </div>
+
+      <AddEmployee newEmployee={newEmployee}>
+            </AddEmployee>
       
   </div>
   );

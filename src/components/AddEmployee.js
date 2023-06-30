@@ -1,12 +1,11 @@
-import { useState } from "react";
-// import Button from "react-bootstrap/Button";
-import Modal from "react-bootstrap/Modal";
-
+import { useState } from 'react';
+import Button from 'react-bootstrap/Button';
+import Modal from 'react-bootstrap/Modal';
+import Employee from './Employee';
 function AddEmployee(props) {
   const [name, setName] = useState('');
   const [role, setRole] = useState('');
   const [img, setImg] = useState('');
-
   const [show, setShow] = useState(false);
 
   const handleClose = () => setShow(false);
@@ -14,25 +13,33 @@ function AddEmployee(props) {
 
   return (
     <>
-      <button
-        onClick={handleShow}
-        className="block mx-auto m-2 bg-purple-600 hover:bg-purple-700 text-white font-bold py-2 px-4 rounded flex flex-wrap justify-center items-center"
-      >
+      <button 
+       className="mx-auto bg-purple-600 hover:bg-purple-700 text-white font-bold py-2 px-4 rounded flex flex-wrap justify-center items-center"
+      onClick={handleShow}>
         + Add Employee
       </button>
 
-      <Modal show={show} onHide={handleClose}>
+      <Modal
+        show={show}
+        onHide={handleClose}
+        backdrop="static"
+        keyboard={false}
+      >
         <Modal.Header closeButton>
-          <Modal.Title>Add Employee</Modal.Title>
+          <Modal.Title>Modal title</Modal.Title>
         </Modal.Header>
         <Modal.Body>
-          <form
-          onSubmit={(e) => {
+        <form onSubmit={(e) => {
             e.preventDefault();
+            setName('');
+            setRole('');
+            setImg('');
             props.newEmployee(name,role,img);
             handleClose();
-          }}
-          id="addModal" 
+          }
+
+          }
+          id="editModal" 
           className="w-full max-w-sm wrap">
             <div class="md:flex md:items-center mb-6">
               <div class="md:w-1/3">
@@ -68,14 +75,16 @@ function AddEmployee(props) {
                 <input
                   class="bg-gray-200 appearance-none border-2 border-gray-200 rounded w-full py-2 px-4 text-gray-700 leading-tight focus:outline-none focus:bg-white focus:border-purple-500"
                   id="role"
-                  placeholder="Bank Teller"
                   type="text"
+                  placeholder="Business Analyst"
                   value={role}
                   onChange={(e) => {setRole(e.target.value)}}
                 />
               </div>
             </div>
 
+
+            
             <div class="md:flex md:items-center mb-6">
               <div class="md:w-1/3">
                 <label
@@ -88,30 +97,29 @@ function AddEmployee(props) {
               <div class="md:w-2/3">
                 <input
                   class="bg-gray-200 appearance-none border-2 border-gray-200 rounded w-full py-2 px-4 text-gray-700 leading-tight focus:outline-none focus:bg-white focus:border-purple-500"
-                  id="img"
-                  placeholder="https://google.com"
+                  id="role"
                   type="text"
+                  placholder="www.google.com"
                   value={img}
                   onChange={(e) => {setImg(e.target.value)}}
                 />
               </div>
             </div>
+
           </form>
         </Modal.Body>
         <Modal.Footer>
-          <button
-          onClick={handleClose}
+        <button
             className="bg-slate-500 hover:bg-slate-700 text-white font-bold py-2 px-4 rounded flex flex-wrap justify-center items-center"
-            form="addModal"
+            form="editModal"
           >
             Close
           </button>
-
           <button
             className="bg-purple-600 hover:bg-purple-700 text-white font-bold py-2 px-4 rounded flex flex-wrap justify-center items-center"
-            form="addModal"
+            form="editModal"
           >
-            Add
+            Update
           </button>
         </Modal.Footer>
       </Modal>
